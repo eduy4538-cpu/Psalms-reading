@@ -84,11 +84,11 @@
         }
 
         .label {
-            font-size: 16px; /* 加大 20% 以便手機閱讀 */
+            font-size: 13px; /* 已調回原本優雅的大小 */
             color: var(--accent-brown);
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-weight: 500;
+            letter-spacing: 1px;
+            font-weight: normal;
         }
 
         footer {
@@ -107,8 +107,8 @@
         <div id="list" class="chapter-list"></div>
     </div>
 
-    <footer>— 每日五篇 · 一月一遍 —</footer>
-    
+    <footer>— 每日五篇 · 靈魂泉源 —</footer>
+
     <script>
         function updatePsalms() {
             const now = new Date();
@@ -120,24 +120,4 @@
             let html = '';
 
             if (day === 31) {
-                html = `<div class="chapter-item" style="border: 2px double var(--accent-brown);">
-                            <span class="label">今日專讀</span>
-                            <span>詩篇 119 篇</span>
-                        </div>`;
-            } else {
-                for (let i = 0; i < 5; i++) {
-                    const chapter = day + (i * 30);
-                    html += `
-                        <div class="chapter-item">
-                            <span class="label">第 ${i+1} 篇</span>
-                            <span>詩篇 ${chapter} 篇</span>
-                        </div>
-                    `;
-                }
-            }
-            listContainer.innerHTML = html;
-        }
-        updatePsalms();
-    </script>
-</body>
-</html>
+                html = `<div class="chapter-item" style="border: 2px double
