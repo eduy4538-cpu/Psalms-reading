@@ -8,18 +8,15 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <style>
         :root {
-            --parchment-bg: #f4e4bc;
-            --parchment-paper: #fcf5e5;
-            --ink-color: #3e2723;
-            --accent-brown: #8d6e63;
-            --border-color: #d7ccc8;
+            --primary-color: #4a90e2;
+            --bg-color: #f5f7fa;
+            --card-bg: #ffffff;
+            --text-color: #333;
         }
-        
         body {
-            font-family: "Noto Serif TC", "Songti TC", serif;
-            background-color: var(--parchment-bg);
-            background-image: url("https://www.transparenttextures.com/patterns/papyrus.png");
-            color: var(--ink-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -27,97 +24,91 @@
             padding: 20px;
             min-height: 100vh;
         }
-
         .container {
             width: 100%;
             max-width: 400px;
-            background: var(--parchment-paper);
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2), inset 0 0 50px rgba(139, 69, 19, 0.1);
-            padding: 30px 20px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 25px;
             text-align: center;
             box-sizing: border-box;
-            border: 1px solid var(--border-color);
-            position: relative;
         }
-
-        .container::before, .container::after {
-            content: "";
-            position: absolute;
-            left: 10%;
-            right: 10%;
-            height: 1px;
-            background: linear-gradient(to right, transparent, var(--accent-brown), transparent);
-        }
-        .container::before { top: 15px; }
-        .container::after { bottom: 15px; }
-
         h1 {
-            font-size: 26px;
+            font-size: 24px;
+            color: var(--primary-color);
             margin-bottom: 5px;
-            letter-spacing: 2px;
-            font-weight: 700;
         }
-
         .date-display {
-            font-size: 15px;
-            color: var(--accent-brown);
-            margin-bottom: 30px;
-            font-style: italic;
+            font-size: 16px;
+            color: #888;
+            margin-bottom: 25px;
         }
-
         .chapter-list {
             display: grid;
             gap: 15px;
         }
-
         .chapter-item {
-            background: rgba(139, 69, 19, 0.05);
-            padding: 20px;
-            border-bottom: 1px solid rgba(139, 69, 19, 0.1);
-            font-size: 24px;
+            background: #f0f4f8;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 22px;
             font-weight: bold;
+            color: #2c3e50;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: all 0.3s;
+            transition: transform 0.2s;
         }
-
+        .chapter-item:active {
+            transform: scale(0.98);
+            background: #e2e8f0;
+        }
         .label {
-            font-size: 13px; /* 已調回原本優雅的大小 */
-            color: var(--accent-brown);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 14px;
+            color: var(--primary-color);
             font-weight: normal;
         }
-
         footer {
-            margin-top: 30px;
-            font-size: 13px;
-            color: var(--accent-brown);
-            letter-spacing: 1px;
+            margin-top: auto;
+            padding: 20px;
+            font-size: 12px;
+            color: #aaa;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>速 讀 詩 篇</h1>
+        <h1>📖 速讀詩篇</h1>
         <div id="date" class="date-display"></div>
-        <div id="list" class="chapter-list"></div>
+        
+        <div id="list" class="chapter-list">
+            </div>
     </div>
 
-    <footer>— 每日五篇 · 靈魂泉源 —</footer>
+    <footer>每日五篇，一月一遍</footer>
 
     <script>
         function updatePsalms() {
             const now = new Date();
-            const day = now.getDate();
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('date').innerText = now.toLocaleDateString('zh-TW', options);
+            const day = now.getDate(); // 獲取今日日期 (1-31)
+            const dateStr = now.getFullYear() + "年" + (now.getMonth() + 1) + "月" + day + "日";
+            document.getElementById('date').innerText = dateStr;
 
             const listContainer = document.getElementById('list');
             let html = '';
 
             if (day === 31) {
-                html = `<div class="chapter-item" style="border: 2px double
+                // 第 31 天專讀 119 篇
+                html = `
+                    <div class="chapter-item" style="border: 1px solid #ffccd5; background: #fff5f5;">
+                        <span class="label">今日專讀</span>
+                        <span>詩篇 119 篇</span>
+                    </div>
+                `;
+            } else {
+                // 每日讀 5 篇
+                for (let i = 0; i < 5; i++) {
+                    const chapter = day + (i * 30);
+                    html +=
