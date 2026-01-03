@@ -12,6 +12,7 @@
             --bg-color: #f5f7fa;
             --card-bg: #ffffff;
             --text-color: #333;
+            --accent-brown: #8d6e63;
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -71,18 +72,18 @@
             letter-spacing: 1.5px;
             font-weight: 500; 
         }
-        }
         .special-note {
             background: #fff5f5;
             color: #e53e3e;
             border: 1px solid #feb2b2;
         }
         footer {
-            margin-top: 15px; /* 原本是 auto 或較大數值，現在縮小間距 */
-            padding: 10px;    /* 縮小內距 */
+            margin-top: 15px; 
+            padding: 10px;    
             font-size: 16px;
             color: #aaa;
-        }
+            text-align: center;
+            line-height: 1.6; /* 增加行高讓兩行經文更有空間感 */
         }
     </style>
 </head>
@@ -92,16 +93,18 @@
         <h1>📖 速讀詩篇 📖</h1>
         <div id="date" class="date-display"></div>
         
-        <div id="list" class="chapter-list">
-            </div>
+        <div id="list" class="chapter-list"></div>
     </div>
 
-    <footer>我何等愛慕你的律法，終日不住地思想。(詩119:97)</footer>
+    <footer>
+        我何等愛慕祢的律法，<br>
+        終日不住地思想。(詩119:97)
+    </footer>
 
     <script>
         function updatePsalms() {
             const now = new Date();
-            const day = now.getDate(); // 獲取今日日期 (1-31)
+            const day = now.getDate();
             const dateStr = now.getFullYear() + "年" + (now.getMonth() + 1) + "月" + day + "日";
             document.getElementById('date').innerText = dateStr;
 
@@ -109,7 +112,6 @@
             let html = '';
 
             if (day === 31) {
-                // 第 31 天專讀 119 篇
                 html = `
                     <div class="chapter-item special-note">
                         <span class="label">今日專讀</span>
@@ -118,7 +120,6 @@
                     <div style="margin-top:10px; color:#666; font-size:14px;">此篇為詩篇中最長篇章</div>
                 `;
             } else {
-                // 每日讀 5 篇：d, d+30, d+60, d+90, d+120
                 for (let i = 0; i < 5; i++) {
                     const chapter = day + (i * 30);
                     html += `
