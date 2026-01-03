@@ -69,6 +69,11 @@
             color: var(--primary-color);
             font-weight: normal;
         }
+        .special-note {
+            background: #fff5f5;
+            color: #e53e3e;
+            border: 1px solid #feb2b2;
+        }
         footer {
             margin-top: auto;
             padding: 20px;
@@ -102,13 +107,28 @@
             if (day === 31) {
                 // 第 31 天專讀 119 篇
                 html = `
-                    <div class="chapter-item" style="border: 1px solid #ffccd5; background: #fff5f5;">
+                    <div class="chapter-item special-note">
                         <span class="label">今日專讀</span>
                         <span>詩篇 119 篇</span>
                     </div>
+                    <div style="margin-top:10px; color:#666; font-size:14px;">此篇為詩篇中最長篇章</div>
                 `;
             } else {
-                // 每日讀 5 篇
+                // 每日讀 5 篇：d, d+30, d+60, d+90, d+120
                 for (let i = 0; i < 5; i++) {
                     const chapter = day + (i * 30);
-                    html +=
+                    html += `
+                        <div class="chapter-item">
+                            <span class="label">第 ${i+1} 篇</span>
+                            <span>詩篇 ${chapter} 篇</span>
+                        </div>
+                    `;
+                }
+            }
+            listContainer.innerHTML = html;
+        }
+
+        updatePsalms();
+    </script>
+</body>
+</html>
